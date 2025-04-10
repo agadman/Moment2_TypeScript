@@ -1,13 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="sv">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>To-Do list</title>
   </head>
   <body>
-    <div id="app"></div>
+    <main>
+      <h1>Att göra</h1>
+      <form id="todo-form">
+        <input type="text" id="task" placeholder="Lägg till ny uppgift" required />
+        <button type="submit">➕</button>
+      </form>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
