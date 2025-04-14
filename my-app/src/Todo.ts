@@ -5,9 +5,9 @@ export class Todo implements ITodo {
     completed: boolean;
     priority: number;
 
-    constructor(task: string, priority: number) {
+    constructor(task: string, priority: number, completed: boolean = false) {
         this.task = task;
-        this.completed = false;
+        this.completed = completed;
         this.priority = priority;
     }
 }

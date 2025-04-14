@@ -1,24 +1,73 @@
+import { Todo } from "./Todo";
+import { TodoManager } from "./TodoManager";
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const todoManager = new TodoManager();
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("todo-form") as HTMLFormElement;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    addTodo();
+  })
+  renderTodos();
+})
+
+function addTodo(): void {
+  const taskInput = document.getElementById('task') as HTMLInputElement;
+  const priorityInput = document.getElementById("priority") as HTMLSelectElement;
+
+  const task = taskInput.value;
+  const priority = parseInt(priorityInput.value);
+
+  if (task && priority) {
+    const newTask = new Todo(task, priority)
+    todoManager.addTodo(newTask);
+    taskInput.value = '';
+    priorityInput.value = '';
+    renderTodos();
+  } 
+}
+
+function renderTodos(): void {
+  const todos = todoManager.getTodos();
+  const todoList = document.getElementById('todo-list') as HTMLUListElement;
+
+  if (todoList) {
+    todoList.innerHTML = '';
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      const checkbox = document.createElement("input");
+      
+      checkbox.type = "checkbox";
+      checkbox.checked = todo.completed;
+      checkbox.addEventListener("change", () => {
+          markCompleted(index); 
+      });
+
+      const taskText = document.createElement("span");
+      taskText.textContent = `${todo.task} (prio: ${todo.priority})`;
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.addEventListener("click", () => {
+        deleteTodo(index);
+      });
+
+      li.appendChild(checkbox);
+      li.appendChild(taskText);
+      li.appendChild(deleteBtn);
+      todoList.appendChild(li);
+    });
+  }
+}
+
+function deleteTodo(index: number): void {
+  todoManager.deleteTodo(index);
+  renderTodos();
+}
+
+function markCompleted(index: number): void {
+  todoManager.markCompleted(index);
+  renderTodos();
+}

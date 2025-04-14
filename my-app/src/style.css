@@ -45,3 +45,12 @@ button[type="submit"] {
   border-radius: 0.5rem;
   cursor: pointer;
 }
+
+select#priority {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: #fff;
+  cursor: pointer;
+}
