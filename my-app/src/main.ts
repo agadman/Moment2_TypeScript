@@ -29,24 +29,39 @@ function addTodo(): void {
   } 
 }
 
+function getPriorityLabel(priority: number): string {
+  switch (priority) {
+    case 3:
+      return "hög";
+    case 2:
+      return "medel";
+    case 1:
+      return "låg";
+    default:
+      return "";
+  }
+}
+
 function renderTodos(): void {
   const todos = todoManager.getTodos();
   const todoList = document.getElementById('todo-list') as HTMLUListElement;
 
+  todos.sort((a, b) => b.priority - a.priority);
+  
   if (todoList) {
     todoList.innerHTML = '';
     todos.forEach((todo, index) => {
       const li = document.createElement('li');
+      li.classList.toggle("done", todo.completed);
       const checkbox = document.createElement("input");
-      
       checkbox.type = "checkbox";
       checkbox.checked = todo.completed;
       checkbox.addEventListener("change", () => {
-          markCompleted(index); 
+        markTodoCompleted(index); 
       });
 
       const taskText = document.createElement("span");
-      taskText.textContent = `${todo.task} (prio: ${todo.priority})`;
+      taskText.textContent = `${todo.task} (prio: ${getPriorityLabel(todo.priority)})`;
 
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "Delete";
@@ -67,7 +82,7 @@ function deleteTodo(index: number): void {
   renderTodos();
 }
 
-function markCompleted(index: number): void {
-  todoManager.markCompleted(index);
+function markTodoCompleted(index: number): void {
+  todoManager.markTodoCompleted(index);
   renderTodos();
 }

@@ -29,7 +29,7 @@ form {
   margin-bottom: 1rem;
 }
 
-input[type="text"] {
+#task {
   flex: 1;
   padding: 0.6rem 1rem;
   border: 1px solid #ccc;
@@ -46,11 +46,97 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-select#priority {
+#priority {
   padding: 0.6rem 1rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   font-size: 1rem;
   background-color: #fff;
   cursor: pointer;
+}
+
+#todo-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f7f7f7;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.done {
+  text-decoration: line-through;
+  color: #999;
+  background-color: #eaeaea;
+}
+
+span {
+  flex-grow: 1;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+
+li button {
+  background-color: #ffdddd;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+li button:hover {
+  background-color: #ffcccc;
+}
+
+li input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+@media (min-width: 600px) {
+  form {
+    flex-direction: row;
+  }
+
+  input[type="text"],
+  select#priority {
+    flex: 1;
+  }
+
+  button[type="submit"] {
+    flex: none;
+  }
+}
+
+@media (max-width: 599px) {
+  body {
+    align-items: flex-start;
+    padding-top: 2rem;
+    height: auto;
+  }
+
+  main {
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+
+  form {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  #todo-list {
+    padding: 0.5rem;
+  }
 }

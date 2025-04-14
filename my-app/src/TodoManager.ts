@@ -22,7 +22,7 @@ export class TodoManager {
         return this.todos;
     }
 
-    public markCompleted(index: number): void {
+    public markTodoCompleted(index: number): void {
         this.todos[index].completed = !this.todos[index].completed;
         LocalStorageUtil.saveTodos(this.todos);
     }
