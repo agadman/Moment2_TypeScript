@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function addTodo(): void {
   const taskInput = document.getElementById('task') as HTMLInputElement;
   const priorityInput = document.getElementById("priority") as HTMLSelectElement;
+  const errorMessage = document.getElementById("error-message") as HTMLParagraphElement;
 
   const task = taskInput.value;
   const priority = parseInt(priorityInput.value);
@@ -25,8 +26,11 @@ function addTodo(): void {
     todoManager.addTodo(newTask);
     taskInput.value = '';
     priorityInput.value = '';
+    errorMessage.textContent = '';
     renderTodos();
-  } 
+  } else {
+    errorMessage.textContent = "Fyll i både uppgift och välj en prioritet.";
+  }
 }
 
 function getPriorityLabel(priority: number): string {

@@ -10,4 +10,8 @@ export class Todo implements ITodo {
         this.completed = completed;
         this.priority = priority;
     }
+
+    public isValid(): boolean {
+        return this.task.trim() !== '' && [1, 2, 3].includes(this.priority);
+      }
 }

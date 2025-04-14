@@ -26,4 +26,5 @@ export class TodoManager {
         this.todos[index].completed = !this.todos[index].completed;
         LocalStorageUtil.saveTodos(this.todos);
     }
+    
 }
